@@ -4,6 +4,7 @@ from sentence_transformers import SentenceTransformer
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import os
+import uvicorn
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -29,3 +30,6 @@ async def search(request: SearchRequest):
 
     result = search_results[0].payload
     return result
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
