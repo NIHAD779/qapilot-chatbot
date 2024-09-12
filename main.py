@@ -2,13 +2,16 @@ from fastapi import FastAPI
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
 from pydantic import BaseModel
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Load environment variables from .env file
 
 app = FastAPI()
 
-
 client = QdrantClient(
-    url="https://0ed5ff2c-d055-4459-aa08-8ff72d9a4f29.europe-west3-0.gcp.cloud.qdrant.io",
-    api_key="UImA32LIcFUAtmobuAsSDKleHka1FG2riKCUYsU2ayK5zqGs7lYOpQ"
+    url=os.getenv("QDRANT_URL"),
+    api_key=os.getenv("QDRANT_API_KEY")
 )
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
