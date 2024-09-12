@@ -36,6 +36,16 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .message-header {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .message-content {
+            margin-left: 10px;
+        }
+        .message-content strong {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -53,11 +63,16 @@
 
             // Display user message
             const chatBox = document.getElementById('chat-box');
-            chatBox.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+            chatBox.innerHTML += `
+                <div>
+                    <div class="message-header">You:</div>
+                    <div class="message-content">${message}</div>
+                </div>
+            `;
             input.value = '';
 
             // Send message to the API
-            const response = await fetch('http://localhost:8000/search', {
+            const response = await fetch('http://127.0.0.1:8000/search', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -68,7 +83,15 @@
             const data = await response.json();
 
             // Display bot response
-            chatBox.innerHTML += `<div><strong>Bot:</strong> ${data}</div>`;
+            chatBox.innerHTML += `
+                <div>
+                    <div class="message-header">Bot:</div>
+                    <div class="message-content">
+                        <strong>Q:</strong> ${data.qa}<br>
+                        <strong>A:</strong> ${data.ans}
+                    </div>
+                </div>
+            `;
             chatBox.scrollTop = chatBox.scrollHeight;
         });
     </script>

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
 from pydantic import BaseModel
@@ -9,6 +10,15 @@ import uvicorn
 load_dotenv()  # Load environment variables from .env file
 
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust this to the specific origins you want to allow
+    allow_credentials=True,
+    allow_methods=["*"],  # Adjust this to the specific methods you want to allow
+    allow_headers=["*"],  # Adjust this to the specific headers you want to allow
+)
 
 client = QdrantClient(
     url=os.getenv("QDRANT_URL"),
