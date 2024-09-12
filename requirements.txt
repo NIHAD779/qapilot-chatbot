@@ -3,3 +3,4 @@ fastapi
 qdrant-client
 pydantic
 uvicorn
+python-dotenv
