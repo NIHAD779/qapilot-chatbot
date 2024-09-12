@@ -2,3 +2,4 @@ sentence-transformers
 fastapi
 qdrant-client
 pydantic
+uvicorn
