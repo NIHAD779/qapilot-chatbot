@@ -9,6 +9,7 @@ import uvicorn
 from supabase import create_client, Client
 from datetime import datetime, timezone
 import uuid
+from zoneinfo import ZoneInfo
 
 # Load environment variables
 load_dotenv()
@@ -142,7 +143,7 @@ async def search(request: SearchRequest):
             "lower_threshold": request.lower_threshold,
             "qdrant_response": qdrant_response,
             "final_response": final_response.model_dump(),
-            "created_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "") + "Z" 
+            "created_at": datetime.now(ZoneInfo('Asia/Kolkata')).isoformat()
         }).execute()
 
         return final_response
